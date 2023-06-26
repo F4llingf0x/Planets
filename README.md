@@ -1,0 +1,2 @@
+# Planets
+Javascript learning project
