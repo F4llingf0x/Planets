@@ -47,7 +47,7 @@ class Planet {
         this.velocityY = velocityY;
     }
 
-    planetMass() {
+    getPlanetMass() {
         return Math.pow(this.radius, 2) * Math.PI;
     }
     addRadius(intersect) {

@@ -31,9 +31,9 @@ for (let i = 0; i < numberOfPlanets; i++) {
  * @param {Planet} planet 
  * @returns Return with the planet mass
  */
-let planetMass = (planet) => {
-    return Math.pow(planet.radius, 2) * Math.PI; 
-}
+// let planetMass = (planet) => {
+//     return Math.pow(planet.radius, 2) * Math.PI; 
+// }
 /**
  * 
  * @param {number} radius1 
@@ -57,18 +57,16 @@ let gravityForce = (planet1, planet2, i, j) => {
     const yComponent = planet1.y - planet2.y;
     const distance = Math.sqrt(xComponent * xComponent + yComponent * yComponent);
 
-    if(!(distance <= planet1.radius + planet1.lineWidth + planet2.radius + planet2.lineWidth)){
-    const force = planetMass(planet1) * planetMass(planet2) / (distance * distance) * gravityFactor;
-    const forceX = force * xComponent / distance;
-    const forceY = force * yComponent / distance;
-    return [forceX, forceY];
+    if(!(distance <= planet1.radius + planet1.lineWidth + planet2.radius + planet2.lineWidth)) {
+        const force = planet1.getPlanetMass() * planet2.getPlanetMass() / (Math.pow(distance,2)) * gravityFactor;
+        const forceX = force * xComponent / distance;
+        const forceY = force * yComponent / distance;
+        return [forceX, forceY];
     } else {
-        const newVelocityX = (planetMass(planet1) * planet1.velocityX + planetMass(planet2) * planet2.velocityX) / 
-        (planetMass(planet1) + planetMass(planet2));
-        const newVelocityY = (planetMass(planet1) * planet1.velocityY + planetMass(planet2) * planet2.velocityY) / 
-        (planetMass(planet1) + planetMass(planet2));
+        const newVelocityX = (planet1.getPlanetMass() * planet1.velocityX + planet2.getPlanetMass() * planet2.velocityX) / (planet1.getPlanetMass() + planet2.getPlanetMass());
+        const newVelocityY = (planet1.getPlanetMass() * planet1.velocityY + planet2.getPlanetMass() * planet2.velocityY) / (planet1.getPlanetMass() + planet2.getPlanetMass());
         const newRadius = addRadius(planet1.radius, planet2.radius);
-        if (planetMass(planet1) > planetMass(planet2)){
+        if (planet1.getPlanetMass() > planet2.getPlanetMass()) {
             planet1.setRadius(newRadius);
             planet1.setVelocity(newVelocityX, newVelocityY);
             planets.splice(j, 1);
@@ -89,8 +87,8 @@ let calculateAdditionalForces = () => {
             let firstPlanet = planets[i];
             let secondPlanet = planets[j];
             let forces = gravityForce(firstPlanet, secondPlanet, i, j);
-            firstPlanet.updateVelocity((forces[0] * -1) / planetMass(firstPlanet), (forces[1] * -1) / planetMass(firstPlanet));
-            secondPlanet.updateVelocity(forces[0] / planetMass(secondPlanet), forces[1] / planetMass(secondPlanet));
+            firstPlanet.updateVelocity((forces[0] * -1) / firstPlanet.getPlanetMass(), (forces[1] * -1) / firstPlanet.getPlanetMass());
+            secondPlanet.updateVelocity(forces[0] / secondPlanet.getPlanetMass(), forces[1] / secondPlanet.getPlanetMass());
         }
     }
 }
