@@ -28,14 +28,6 @@ for (let i = 0; i < numberOfPlanets; i++) {
 
 /**
  * 
- * @param {Planet} planet 
- * @returns Return with the planet mass
- */
-// let planetMass = (planet) => {
-//     return Math.pow(planet.radius, 2) * Math.PI; 
-// }
-/**
- * 
  * @param {number} radius1 
  * @param {number} radius2 
  * @returns Return a new radius based on 2 planets
