@@ -62,6 +62,9 @@ let gravityForce = (planet1, planet2, i, j) => {
     return [0, 0];
 } 
 
+/**
+ *  Main physics calculation
+ */
 let calculateAdditionalForces = () => {
     for (let i = 0; i < planets.length; i++) {
         for (let j = i + 1; j < planets.length; j++) {
