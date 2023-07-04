@@ -37,10 +37,10 @@ class Planet {
         this.velocityX += xComponent;
         this.velocityY += yComponent;
     }
-
-    setRadius(radius) {
-        this.radius = radius;
-    }
+    /** Deprecated */
+    // setRadius(radius) {
+    //     this.radius = radius;
+    // }
 
     setVelocity(velocityX, velocityY) {
         this.velocityX = velocityX;

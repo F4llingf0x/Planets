@@ -28,16 +28,6 @@ for (let i = 0; i < numberOfPlanets; i++) {
 
 /**
  * 
- * @param {number} radius1 
- * @param {number} radius2 
- * @returns Return a new radius based on 2 planets
- */
-let addRadius = (radius1, radius2) => {
-   return Math.sqrt(radius1 * radius1 + radius2 * radius2);
-}
-
-/**
- * 
  * @param {Planet} planet1 
  * @param {Planet} planet2 
  * @param {number} i 
@@ -57,13 +47,12 @@ let gravityForce = (planet1, planet2, i, j) => {
     } else {
         const newVelocityX = (planet1.getPlanetMass() * planet1.velocityX + planet2.getPlanetMass() * planet2.velocityX) / (planet1.getPlanetMass() + planet2.getPlanetMass());
         const newVelocityY = (planet1.getPlanetMass() * planet1.velocityY + planet2.getPlanetMass() * planet2.velocityY) / (planet1.getPlanetMass() + planet2.getPlanetMass());
-        const newRadius = addRadius(planet1.radius, planet2.radius);
         if (planet1.getPlanetMass() > planet2.getPlanetMass()) {
-            planet1.setRadius(newRadius);
+            planet1.addRadius(planet2.radius);
             planet1.setVelocity(newVelocityX, newVelocityY);
             planets.splice(j, 1);
         } else {
-            planet2.setRadius(newRadius);
+            planet2.addRadius(planet1.radius);
             planet2.setVelocity(newVelocityX, newVelocityY);
             planets.splice(i, 1);
         }
