@@ -1,4 +1,3 @@
-
 const canvas = document.getElementById("my-canvas");
 const ctx = canvas.getContext("2d");
 
@@ -6,10 +5,10 @@ canvas.width = window.innerWidth - 200;
 canvas.height = window.innerHeight - 100;
 
 const planets = [];
-const velocity = 5;
-const gravityFactor = 1.1;
+const velocity = 3;
+const gravityFactor = 0.1;
 
-const numberOfPlanets = 2;
+const numberOfPlanets = 22;
 
 /**
  * Init Planets
@@ -28,16 +27,16 @@ for (let i = 0; i < numberOfPlanets; i++) {
 
 /**
  * 
- * @param {Planet} planet1 
- * @param {Planet} planet2 
- * @param {number} i 
- * @param {number} j 
- * @returns 
+ * @param {Planet} planet1 The first selected planet
+ * @param {Planet} planet2 Another selecte planet. (The next one in the Array)
+ * @param {number} i The first object's index in the Array
+ * @param {number} j The second object's index in the Array
+ * @returns Defining the gravity and rules
  */
 let gravityForce = (planet1, planet2, i, j) => {
     const xComponent = planet1.x - planet2.x;
     const yComponent = planet1.y - planet2.y;
-    const distance = Math.sqrt(xComponent * xComponent + yComponent * yComponent);
+    const distance = Math.sqrt(Math.pow(xComponent, 2) + Math.pow(yComponent,2));
 
     if(!(distance <= planet1.radius + planet1.lineWidth + planet2.radius + planet2.lineWidth)) {
         const force = planet1.getPlanetMass() * planet2.getPlanetMass() / (Math.pow(distance,2)) * gravityFactor;
@@ -61,7 +60,6 @@ let gravityForce = (planet1, planet2, i, j) => {
     return [0, 0];
 } 
 
-
 let calculateAdditionalForces = () => {
     for (let i = 0; i < planets.length; i++) {
         for (let j = i + 1; j < planets.length; j++) {
@@ -84,15 +82,21 @@ let explode = () => {
 const loop = () => {
     explode();
     calculateAdditionalForces();
-    planets.forEach(planet => {
-        planet.draw();
-        planet.move();
-        // ctx.save();
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.01)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.restore();
-    });
-    requestAnimationFrame(loop);
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.restore();
+    setTimeout( () => {
+        planets.forEach(planet => {
+            planet.draw();
+        });
+    }, "1000")  
+
+    setTimeout(() => {
+        planets.forEach(planet => {
+            planet.move();
+        });
+    }, "1250")    
+    requestAnimationFrame(loop);   
 }
 
 loop();

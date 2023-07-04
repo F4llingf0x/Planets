@@ -37,10 +37,14 @@ class Planet {
         this.velocityX += xComponent;
         this.velocityY += yComponent;
     }
+
     /** Deprecated */
     // setRadius(radius) {
     //     this.radius = radius;
     // }
+    addRadius(intersect) {
+        return Math.sqrt(Math.pow(this.radius, 2) + Math.pow(intersect.radius, 2));
+    }
 
     setVelocity(velocityX, velocityY) {
         this.velocityX = velocityX;
@@ -49,8 +53,5 @@ class Planet {
 
     getPlanetMass() {
         return Math.pow(this.radius, 2) * Math.PI;
-    }
-    addRadius(intersect) {
-        return Math.sqrt(Math.pow(this.radius, 2) + Math.pow(intersect.radius, 2));
     }
 }
