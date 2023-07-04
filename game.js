@@ -9,6 +9,8 @@ const velocity = 3;
 const gravityFactor = 0.1;
 
 const numberOfPlanets = 22;
+const initPlanetDelay = "1000" // 1 sec
+const initPlanetMovementDelay = "1250" // 1.25 sec
 
 /**
  * Init Planets
@@ -89,13 +91,13 @@ const loop = () => {
         planets.forEach(planet => {
             planet.draw();
         });
-    }, "1000")  
+    }, initPlanetDelay)  
 
     setTimeout(() => {
         planets.forEach(planet => {
             planet.move();
         });
-    }, "1250")    
+    }, initPlanetMovementDelay)    
     requestAnimationFrame(loop);   
 }
 
