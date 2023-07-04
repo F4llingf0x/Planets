@@ -68,9 +68,9 @@ let gravityForce = (planet1, planet2, i, j) => {
 let calculateAdditionalForces = () => {
     for (let i = 0; i < planets.length; i++) {
         for (let j = i + 1; j < planets.length; j++) {
-            let firstPlanet = planets[i];
-            let secondPlanet = planets[j];
-            let forces = gravityForce(firstPlanet, secondPlanet, i, j);
+            const firstPlanet = planets[i];
+            const secondPlanet = planets[j];
+            const forces = gravityForce(firstPlanet, secondPlanet, i, j);
             firstPlanet.updateVelocity((forces[0] * -1) / firstPlanet.getPlanetMass(), (forces[1] * -1) / firstPlanet.getPlanetMass());
             secondPlanet.updateVelocity(forces[0] / secondPlanet.getPlanetMass(), forces[1] / secondPlanet.getPlanetMass());
         }
